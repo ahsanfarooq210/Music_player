@@ -3,11 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ahsan/AndroidStudioProjects/Music_player/app/src/main/res/drawable/back_icon.xml" value="0.1165" />
         <entry key="..\:/Users/ahsan/AndroidStudioProjects/Music_player/app/src/main/res/drawable/favourtite_icon.xml" value="0.1165" />
         <entry key="..\:/Users/ahsan/AndroidStudioProjects/Music_player/app/src/main/res/drawable/playlist_icon.xml" value="0.1165" />
         <entry key="..\:/Users/ahsan/AndroidStudioProjects/Music_player/app/src/main/res/drawable/shuffle_icon.xml" value="0.1165" />
         <entry key="..\:/Users/ahsan/AndroidStudioProjects/Music_player/app/src/main/res/drawable/splash_screen.xml" value="0.1165" />
         <entry key="..\:/Users/ahsan/AndroidStudioProjects/Music_player/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/ahsan/AndroidStudioProjects/Music_player/app/src/main/res/layout/activity_player.xml" value="0.2" />
       </map>
     </option>
   </component>

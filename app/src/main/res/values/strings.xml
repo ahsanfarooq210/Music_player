@@ -4,4 +4,7 @@
     <string name="favourites_button">Favourites</string>
     <string name="playlist_button">Playlists</string>
     <string name="total_songs">Total songs</string>
+    <string name="world_of_music">World of music</string>
+    <string name="song_name">Song Name</string>
+    <string name="back_btn">back</string>
 </resources>
