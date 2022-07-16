@@ -13,4 +13,6 @@
     <string name="timer_btn">Timer</string>
     <string name="share_btn">Share</string>
     <string name="repeat">Repeat</string>
+    <string name="open">Open</string>
+    <string name="close">close</string>
 </resources>

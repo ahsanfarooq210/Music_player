@@ -4,9 +4,11 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
 import com.ahsanfarooq210.music_player.databinding.ActivityMainBinding
 
@@ -14,6 +16,7 @@ class MainActivity : AppCompatActivity()
 {
     private lateinit var binding:ActivityMainBinding
     private lateinit var storagePermission:ActivityResultLauncher<String>
+    private lateinit var toggle:ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -34,6 +37,12 @@ class MainActivity : AppCompatActivity()
      * */
     private fun initViews()
     {
+        //for nav drawer
+        toggle= ActionBarDrawerToggle(this@MainActivity,binding.root,R.string.open,R.string.close)
+        binding.root.addDrawerListener(toggle)
+        toggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         binding.shuffleBtn.setOnClickListener {
             val intent= Intent(this@MainActivity,PlayerActivity::class.java)
             startActivity(intent)
@@ -77,5 +86,14 @@ class MainActivity : AppCompatActivity()
                 Toast.makeText(this@MainActivity, "Permission Granted", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean
+    {
+        if(toggle.onOptionsItemSelected(item))
+        {
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
