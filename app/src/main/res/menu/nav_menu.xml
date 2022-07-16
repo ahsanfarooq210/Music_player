@@ -2,15 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/item1"
-        android:title="item1" />
+        android:id="@+id/navFeedback"
+        android:title="@string/feedback"
+        android:icon="@drawable/feedback_icon"/>
     <item
-        android:id="@+id/item2"
-        android:title="item2" />
+        android:id="@+id/navSettings"
+        android:title="@string/settings"
+        android:icon="@drawable/settings_icon"/>
     <item
-        android:id="@+id/item3"
-        android:title="ite3" />
+        android:id="@+id/navAbout"
+        android:title="@string/about"
+        android:icon="@drawable/about_icon"/>
     <item
-        android:id="@+id/item4"
-        android:title="item4" />
+        android:id="@+id/navExit"
+        android:title="@string/exit"
+        android:icon="@drawable/exit_icon"/>
 </menu>

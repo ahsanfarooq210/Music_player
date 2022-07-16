@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
 import com.ahsanfarooq210.music_player.databinding.ActivityMainBinding
+import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity()
 {
@@ -54,6 +55,16 @@ class MainActivity : AppCompatActivity()
         binding.favoutireBtn.setOnClickListener {
             val intent= Intent(this@MainActivity,FavouriteActivity::class.java)
             startActivity(intent)
+        }
+        binding.navView.setNavigationItemSelectedListener {
+            when(it.itemId)
+            {
+                R.id.navFeedback-> Toast.makeText(this@MainActivity, "Feedback", Toast.LENGTH_SHORT).show()
+                R.id.navSettings-> Toast.makeText(this@MainActivity, "Settings", Toast.LENGTH_SHORT).show()
+                R.id.navAbout-> Toast.makeText(this@MainActivity, "About", Toast.LENGTH_SHORT).show()
+                R.id.navExit-> exitProcess(1)
+            }
+            true
         }
     }
 
