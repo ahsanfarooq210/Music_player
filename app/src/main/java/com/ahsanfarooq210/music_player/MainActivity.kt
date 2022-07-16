@@ -1,5 +1,6 @@
 package com.ahsanfarooq210.music_player
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -16,14 +17,27 @@ class MainActivity : AppCompatActivity()
         setTheme(R.style.Theme_Music_player)
         setContentView(binding.root)
 
+
         initViews()
 
     }
 
+    /**
+     * this method is to initialize all the views
+     * */
     private fun initViews()
     {
         binding.shuffleBtn.setOnClickListener {
-            Toast.makeText(this@MainActivity,"button clicked ",Toast.LENGTH_SHORT).show()
+            val intent= Intent(this@MainActivity,PlayerActivity::class.java)
+            startActivity(intent)
+        }
+        binding.playlistBtn.setOnClickListener {
+            val intent= Intent(this@MainActivity,PlaylistActivity::class.java)
+            startActivity(intent)
+        }
+        binding.favoutireBtn.setOnClickListener {
+            val intent= Intent(this@MainActivity,FavouriteActivity::class.java)
+            startActivity(intent)
         }
     }
 }
