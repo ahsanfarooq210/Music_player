@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity()
         super.onCreate(savedInstanceState)
         requestRuntimePermission()
         binding=ActivityMainBinding.inflate(layoutInflater)
-        setTheme(R.style.Theme_Music_player)
+        setTheme(R.style.coolPinkNav)
         setContentView(binding.root)
 
 

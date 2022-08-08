@@ -23,7 +23,8 @@
             android:background="@android:color/transparent"
             android:contentDescription="@string/back_btn"
             android:src="@drawable/back_icon"
-            app:tint="@color/black" />
+            app:tint="@color/black"
+            android:padding="5dp"/>
 
         <TextView
             android:layout_width="0dp"

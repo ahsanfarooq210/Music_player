@@ -12,7 +12,7 @@ class PlayerActivity : AppCompatActivity()
     {
         super.onCreate(savedInstanceState)
         binding=ActivityPlayerBinding.inflate(layoutInflater)
-        setTheme(R.style.Theme_Music_player)
+        setTheme(R.style.coolPink)
         setContentView(binding.root)
     }
 }
