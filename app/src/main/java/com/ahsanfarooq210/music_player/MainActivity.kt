@@ -10,6 +10,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ahsanfarooq210.music_player.databinding.ActivityMainBinding
 import kotlin.system.exitProcess
 
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity()
     private lateinit var binding:ActivityMainBinding
     private lateinit var storagePermission:ActivityResultLauncher<String>
     private lateinit var toggle:ActionBarDrawerToggle
+    private lateinit var adapter:MusicAdapter
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -29,8 +31,22 @@ class MainActivity : AppCompatActivity()
 
 
         initViews()
+        setAdapters()
 
+    }
 
+    private fun setAdapters()
+    {
+        binding.musicRV.layoutManager=LinearLayoutManager(this)
+        val musicList=ArrayList<String>()
+        musicList.add("first song ")
+        musicList.add("second song ")
+        musicList.add("third song ")
+        musicList.add("fourth song ")
+        binding.musicRV.setHasFixedSize(true)
+        binding.musicRV.setItemViewCacheSize(13)
+        adapter= MusicAdapter(this@MainActivity,musicList)
+        binding.musicRV.adapter=adapter
     }
 
     /**

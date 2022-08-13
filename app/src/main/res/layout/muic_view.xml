@@ -22,7 +22,9 @@
         android:layout_toEndOf="@id/imageMV"
         android:textColor="@color/black"
         android:layout_toStartOf="@id/songDuration"
-        android:layout_marginStart="5dp" />
+        android:layout_marginStart="5dp"
+        android:gravity="center_vertical"
+        android:singleLine="true"/>
 
     <TextView
         android:id="@+id/songAlbumMV"
@@ -33,7 +35,9 @@
         android:textColor="@color/black"
         android:layout_toStartOf="@id/songDuration"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="30dp"
+        android:gravity="center_vertical"
+        android:singleLine="true"/>
 
 
 
