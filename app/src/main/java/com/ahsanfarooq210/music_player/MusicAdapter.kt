@@ -1,8 +1,10 @@
 package com.ahsanfarooq210.music_player
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.ahsanfarooq210.music_player.databinding.MuicViewBinding
 import com.bumptech.glide.Glide
@@ -22,8 +24,13 @@ class MusicAdapter(private val context: Context,private val musicList:ArrayList<
         holder.binding.apply {
             this.songNameMV.text=data.title
             this.songAlbumMV.text=data.album
-            this.songDuration.text=data.duration.toString()
+            this.songDuration.text= formateDuration(data.duration)
             Glide.with(context).load(data.artUri).apply(RequestOptions().placeholder(R.mipmap.music_player_icon_round).centerCrop()).into(this.imageMV)
+        }
+
+        holder.binding.root.setOnClickListener{
+            val intent=Intent(context,PlayerActivity::class.java)
+            ContextCompat.startActivity(context,intent,null)
         }
     }
 
