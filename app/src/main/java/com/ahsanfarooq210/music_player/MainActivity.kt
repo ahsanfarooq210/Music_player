@@ -2,6 +2,7 @@ package com.ahsanfarooq210.music_player
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.MenuItem
@@ -133,7 +134,7 @@ class MainActivity : AppCompatActivity()
     {
         val tempList = ArrayList<Music>()
         val selection = MediaStore.Audio.Media.IS_MUSIC + "!=0"
-        val projection = arrayOf(MediaStore.Audio.Media._ID, MediaStore.Audio.Media.TITLE, MediaStore.Audio.Media.ALBUM, MediaStore.Audio.Media.ARTIST, MediaStore.Audio.Media.DURATION, MediaStore.Audio.Media.DATE_ADDED, MediaStore.Audio.Media.DATA)
+        val projection = arrayOf(MediaStore.Audio.Media._ID, MediaStore.Audio.Media.TITLE, MediaStore.Audio.Media.ALBUM, MediaStore.Audio.Media.ARTIST, MediaStore.Audio.Media.DURATION, MediaStore.Audio.Media.DATE_ADDED, MediaStore.Audio.Media.DATA,MediaStore.Audio.Media.ALBUM_ID)
         val cursor = this.contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection, selection, null, MediaStore.Audio.Media.TITLE, null)
         if (cursor != null)
         {
@@ -203,7 +204,19 @@ class MainActivity : AppCompatActivity()
                         }
                     )
 
-                    val music=Music(idC,titleC,albumC,artistC,durationC,pathC)
+                    var albumIdC=cursor.getLong(
+                        if(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)>=0)
+                        {
+                            cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)
+                        }
+                        else
+                        {
+                            0
+                        }
+                    ).toString()
+                    val uri=Uri.parse("content://media/external/audio/albumart")
+                    val artUri=Uri.withAppendedPath(uri,albumIdC).toString()
+                    val music=Music(idC,titleC,albumC,artistC,durationC,pathC,artUri)
                     val file=File(music.path)
                     if(file.exists())
                     {
