@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ahsanfarooq210.music_player.databinding.MuicViewBinding
 
-class MusicAdapter(private val context: Context,private val musicList:ArrayList<String>):RecyclerView.Adapter<MusicAdapter.ViewHolder>()
+class MusicAdapter(private val context: Context,private val musicList:ArrayList<Music>):RecyclerView.Adapter<MusicAdapter.ViewHolder>()
 {
     class  ViewHolder( val binding:MuicViewBinding):RecyclerView.ViewHolder(binding.root)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
@@ -16,8 +16,11 @@ class MusicAdapter(private val context: Context,private val musicList:ArrayList<
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int)
     {
+        val data=musicList[position]
         holder.binding.apply {
-            this.songNameMV.text=musicList[position]
+            this.songNameMV.text=data.title
+            this.songAlbumMV.text=data.album
+            this.songDuration.text=data.duration.toString()
         }
     }
 
