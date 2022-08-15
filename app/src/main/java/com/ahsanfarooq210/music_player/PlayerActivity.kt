@@ -14,7 +14,7 @@ class PlayerActivity : AppCompatActivity()
         lateinit var musicListPA: ArrayList<Music>
         var songPosition: Int = 0
         var mediaPlayer: MediaPlayer? = null
-        var isPlaying:Boolean=false
+        var isPlaying: Boolean = false
     }
 
     private lateinit var binding: ActivityPlayerBinding
@@ -33,8 +33,8 @@ class PlayerActivity : AppCompatActivity()
 
     private fun setListinners()
     {
-        binding.playPauseBtn.setOnClickListener{
-            if(isPlaying)
+        binding.playPauseBtn.setOnClickListener {
+            if (isPlaying)
             {
                 pauseMusic()
             }
@@ -42,6 +42,13 @@ class PlayerActivity : AppCompatActivity()
             {
                 playMusic()
             }
+        }
+
+        binding.previousBtnPA.setOnClickListener {
+            prevNextSong(increment = false)
+        }
+        binding.nextBtnPA.setOnClickListener {
+            prevNextSong(increment = true)
         }
     }
 
@@ -79,7 +86,7 @@ class PlayerActivity : AppCompatActivity()
             mediaPlayer!!.setDataSource(musicListPA[songPosition].path)
             mediaPlayer!!.prepare()
             mediaPlayer!!.start()
-            isPlaying=true
+            isPlaying = true
             binding.playPauseBtn.setIconResource(R.drawable.pause_icon)
         }
         catch (e: Exception)
@@ -92,13 +99,14 @@ class PlayerActivity : AppCompatActivity()
     private fun playMusic()
     {
         binding.playPauseBtn.setIconResource(R.drawable.pause_icon)
-        isPlaying=true
+        isPlaying = true
         mediaPlayer!!.start()
     }
+
     private fun pauseMusic()
     {
         binding.playPauseBtn.setIconResource(R.drawable.play_icon)
-        isPlaying=false
+        isPlaying = false
         mediaPlayer!!.pause()
     }
 
@@ -107,5 +115,48 @@ class PlayerActivity : AppCompatActivity()
         mediaPlayer!!.stop()
         mediaPlayer = null
         super.onDestroy()
+    }
+
+    private fun prevNextSong(increment: Boolean)
+    {
+        if (increment)
+        {
+            setSongposition(increment = true)
+            setLayout()
+            createMediaPlayer()
+
+        }
+        else
+        {
+            setSongposition(increment = false)
+            setLayout()
+            createMediaPlayer()
+        }
+    }
+
+    private fun setSongposition(increment: Boolean)
+    {
+        if(increment)
+        {
+            if(musicListPA.size-1== songPosition)
+            {
+                songPosition=0
+            }
+            else
+            {
+                ++songPosition
+            }
+        }
+        else
+        {
+            if(0== songPosition)
+            {
+                songPosition= musicListPA.size-1
+            }
+            else
+            {
+                --songPosition
+            }
+        }
     }
 }
