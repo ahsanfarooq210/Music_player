@@ -36,9 +36,8 @@ class MainActivity : AppCompatActivity()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setTheme(R.style.coolPinkNav)
         setContentView(binding.root)
-
-
         initViews()
+        if(requestRuntimePermission())
         setAdapters()
 
     }
@@ -95,14 +94,16 @@ class MainActivity : AppCompatActivity()
     /**
      * for requesting permisssions
      * */
-    private fun requestRuntimePermission()
+    private fun requestRuntimePermission():Boolean
     {
         if (ActivityCompat.checkSelfPermission(this@MainActivity, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
         {
             Toast.makeText(this@MainActivity, "denied", Toast.LENGTH_SHORT).show()
             initiatePermissionContract()
             storagePermission.launch(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            return false
         }
+        return true
     }
 
     /**
@@ -115,6 +116,7 @@ class MainActivity : AppCompatActivity()
             if (it)
             {
                 Toast.makeText(this@MainActivity, "Permission Granted", Toast.LENGTH_SHORT).show()
+                setAdapters()
             }
             else
             {
