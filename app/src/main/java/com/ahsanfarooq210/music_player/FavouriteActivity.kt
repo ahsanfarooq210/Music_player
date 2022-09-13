@@ -13,5 +13,6 @@ class FavouriteActivity : AppCompatActivity()
         binding=ActivityFavouriteBinding.inflate(layoutInflater)
         setTheme(R.style.coolPink)
         setContentView(binding.root)
+        //testing
     }
 }
