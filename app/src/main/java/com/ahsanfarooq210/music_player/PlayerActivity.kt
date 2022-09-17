@@ -6,7 +6,6 @@ import android.content.ServiceConnection
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.IBinder
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ahsanfarooq210.music_player.databinding.ActivityPlayerBinding
 import com.bumptech.glide.Glide
@@ -183,7 +182,7 @@ class PlayerActivity : AppCompatActivity(),ServiceConnection
     override fun onServiceConnected(p0: ComponentName?, service: IBinder?)
     {
         val binder=service as MusicService.MyBinder
-        musicService=binder.currentSerivce()
+        musicService=binder.currentService()
         createMediaPlayer()
         musicService!!.showNotification()
     }

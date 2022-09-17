@@ -1,7 +1,5 @@
 package com.ahsanfarooq210.music_player
 
-import android.app.Notification
-import android.app.NotificationManager
 import android.app.Service
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -20,14 +18,14 @@ class MusicService : Service()
 
     override fun onBind(p0: Intent?): IBinder
     {
-        mediaSession = MediaSessionCompat(baseContext, "My Music")
+        mediaSession = MediaSessionCompat(baseContext, "My Music session")
         return myBinder
     }
 
 
     inner class MyBinder : Binder()
     {
-        fun currentSerivce(): MusicService
+        fun currentService(): MusicService
         {
             return this@MusicService
         }
@@ -38,9 +36,9 @@ class MusicService : Service()
         //make the notification
         val notification = NotificationCompat.Builder(baseContext, ApplicationClass.CHANNEL_ID).setContentTitle(PlayerActivity.musicListPA[PlayerActivity.songPosition].title)
             .setContentText(PlayerActivity.musicListPA[PlayerActivity.songPosition].artist)
-            .setSmallIcon(R.drawable.playlist_icon)
+            .setSmallIcon(R.drawable.music_icon)
             .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.splash_screen))
-            .setStyle(androidx.media.app.NotificationCompat.MediaStyle().setMediaSession(mediaSession.sessionToken))
+            .setStyle(androidx.media.app.NotificationCompat.MediaStyle())
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setOnlyAlertOnce(true)
@@ -52,7 +50,7 @@ class MusicService : Service()
 
         //show the notification
         startForeground(1, notification)
-        (getSystemService(NOTIFICATION_SERVICE) as NotificationManager).notify(1,notification)
+        // (getSystemService(NOTIFICATION_SERVICE) as NotificationManager).notify(1,notification)
 
     }
 
