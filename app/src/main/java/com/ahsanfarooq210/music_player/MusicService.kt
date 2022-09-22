@@ -3,6 +3,7 @@ package com.ahsanfarooq210.music_player
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.MediaPlayer
 import android.media.session.MediaSession
@@ -46,11 +47,21 @@ class MusicService : Service()
         val exitIntent = Intent(baseContext, NotificationReceiver::class.java).setAction(ApplicationClass.EXIT)
         val exitPendingIntent = PendingIntent.getBroadcast(baseContext, 0, exitIntent, PendingIntent.FLAG_IMMUTABLE)
 
+        val imageArt= getImageArt(PlayerActivity.musicListPA[PlayerActivity.songPosition].path)
+        val image=if(imageArt!=null)
+        {
+            BitmapFactory.decodeByteArray(imageArt,0,imageArt.size)
+        }
+        else
+        {
+            BitmapFactory.decodeResource(resources, R.drawable.splash_screen)
+        }
+
         //make the notification
         val notification = NotificationCompat.Builder(baseContext, ApplicationClass.CHANNEL_ID).setContentTitle(PlayerActivity.musicListPA[PlayerActivity.songPosition].title)
             .setContentText(PlayerActivity.musicListPA[PlayerActivity.songPosition].artist)
             .setSmallIcon(R.drawable.music_icon)
-            .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.splash_screen))
+            .setLargeIcon(image)
             .setStyle(androidx.media.app.NotificationCompat.MediaStyle())
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
