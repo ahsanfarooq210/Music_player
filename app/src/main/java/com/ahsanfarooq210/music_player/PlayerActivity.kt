@@ -1,5 +1,6 @@
 package com.ahsanfarooq210.music_player
 
+import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Intent
 import android.content.ServiceConnection
@@ -13,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions
 
 class PlayerActivity : AppCompatActivity(),ServiceConnection
 {
+
     companion object
     {
         lateinit var musicListPA: ArrayList<Music>
@@ -20,9 +22,11 @@ class PlayerActivity : AppCompatActivity(),ServiceConnection
 
         var isPlaying: Boolean = false
         var musicService:MusicService?=null
+        @SuppressLint("StaticFieldLeak")
+        lateinit var binding: ActivityPlayerBinding
     }
 
-    private lateinit var binding: ActivityPlayerBinding
+
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -118,6 +122,7 @@ class PlayerActivity : AppCompatActivity(),ServiceConnection
     private fun playMusic()
     {
         binding.playPauseBtn.setIconResource(R.drawable.pause_icon)
+        musicService!!.showNotification(R.drawable.pause_icon)
         isPlaying = true
         musicService!!.mediaPlayer!!.start()
     }
@@ -125,6 +130,7 @@ class PlayerActivity : AppCompatActivity(),ServiceConnection
     private fun pauseMusic()
     {
         binding.playPauseBtn.setIconResource(R.drawable.play_icon)
+        musicService!!.showNotification(R.drawable.play_icon)
         isPlaying = false
         musicService!!.mediaPlayer!!.pause()
     }
@@ -184,7 +190,7 @@ class PlayerActivity : AppCompatActivity(),ServiceConnection
         val binder=service as MusicService.MyBinder
         musicService=binder.currentService()
         createMediaPlayer()
-        musicService!!.showNotification()
+        musicService!!.showNotification(R.drawable.pause_icon)
     }
 
     override fun onServiceDisconnected(p0: ComponentName?)
