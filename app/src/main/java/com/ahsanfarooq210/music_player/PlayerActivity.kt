@@ -111,6 +111,7 @@ class PlayerActivity : AppCompatActivity(),ServiceConnection
             musicService!!.mediaPlayer!!.start()
             isPlaying = true
             binding.playPauseBtn.setIconResource(R.drawable.pause_icon)
+            musicService!!.showNotification(R.drawable.pause_icon)
         }
         catch (e: Exception)
         {
@@ -159,38 +160,14 @@ class PlayerActivity : AppCompatActivity(),ServiceConnection
         }
     }
 
-    private fun setSongposition(increment: Boolean)
-    {
-        if(increment)
-        {
-            if(musicListPA.size-1== songPosition)
-            {
-                songPosition=0
-            }
-            else
-            {
-                ++songPosition
-            }
-        }
-        else
-        {
-            if(0== songPosition)
-            {
-                songPosition= musicListPA.size-1
-            }
-            else
-            {
-                --songPosition
-            }
-        }
-    }
+
 
     override fun onServiceConnected(p0: ComponentName?, service: IBinder?)
     {
         val binder=service as MusicService.MyBinder
         musicService=binder.currentService()
         createMediaPlayer()
-        musicService!!.showNotification(R.drawable.pause_icon)
+
     }
 
     override fun onServiceDisconnected(p0: ComponentName?)

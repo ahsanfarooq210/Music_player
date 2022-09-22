@@ -33,7 +33,7 @@ class MusicService : Service()
         }
     }
 
-    fun showNotification(playPauseButton:Int)
+    fun showNotification(playPauseButton: Int)
     {
         val prevIntent = Intent(baseContext, NotificationReceiver::class.java).setAction(ApplicationClass.previous)
         val prevPendingIntent = PendingIntent.getBroadcast(baseContext, 0, prevIntent, PendingIntent.FLAG_IMMUTABLE)
@@ -47,10 +47,10 @@ class MusicService : Service()
         val exitIntent = Intent(baseContext, NotificationReceiver::class.java).setAction(ApplicationClass.EXIT)
         val exitPendingIntent = PendingIntent.getBroadcast(baseContext, 0, exitIntent, PendingIntent.FLAG_IMMUTABLE)
 
-        val imageArt= getImageArt(PlayerActivity.musicListPA[PlayerActivity.songPosition].path)
-        val image=if(imageArt!=null)
+        val imageArt = getImageArt(PlayerActivity.musicListPA[PlayerActivity.songPosition].path)
+        val image = if (imageArt != null)
         {
-            BitmapFactory.decodeByteArray(imageArt,0,imageArt.size)
+            BitmapFactory.decodeByteArray(imageArt, 0, imageArt.size)
         }
         else
         {
@@ -76,6 +76,27 @@ class MusicService : Service()
         startForeground(1, notification)
         // (getSystemService(NOTIFICATION_SERVICE) as NotificationManager).notify(1,notification)
 
+    }
+
+    fun createMediaPlayer()
+    {
+        try
+        {
+            if (PlayerActivity.musicService!!.mediaPlayer == null)
+            {
+                PlayerActivity.musicService!!.mediaPlayer = MediaPlayer()
+            }
+            PlayerActivity.musicService!!.mediaPlayer!!.reset()
+            PlayerActivity.musicService!!.mediaPlayer!!.setDataSource(PlayerActivity.musicListPA[PlayerActivity.songPosition].path)
+            PlayerActivity.musicService!!.mediaPlayer!!.prepare()
+            PlayerActivity.binding.playPauseBtn.setIconResource(R.drawable.pause_icon)
+            PlayerActivity.musicService!!.showNotification(R.drawable.pause_icon)
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+            return
+        }
     }
 
 }

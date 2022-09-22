@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import kotlin.system.exitProcess
 
 class NotificationReceiver : BroadcastReceiver()
@@ -13,11 +15,11 @@ class NotificationReceiver : BroadcastReceiver()
         when(intent?.action)
         {
             ApplicationClass.previous->{
-                Toast.makeText(context, "previous clicked", Toast.LENGTH_SHORT).show()
+                prevNextSong(false,context!!)
             }
 
             ApplicationClass.NEXT->{
-                Toast.makeText(context, "next clicked", Toast.LENGTH_SHORT).show()
+                prevNextSong(true,context!!)
             }
 
             ApplicationClass.PLAY->{
@@ -53,5 +55,15 @@ class NotificationReceiver : BroadcastReceiver()
         PlayerActivity.musicService!!.mediaPlayer!!.pause()
         PlayerActivity.musicService!!.showNotification(R.drawable.play_icon)
         PlayerActivity.binding.playPauseBtn.setIconResource(R.drawable.play_icon )
+    }
+
+    private fun prevNextSong(increment:Boolean,context: Context)
+    {
+        setSongposition(increment=increment)
+        PlayerActivity.musicService!!.createMediaPlayer()
+        Glide.with(context).load(PlayerActivity.musicListPA[PlayerActivity.songPosition].artUri).apply(RequestOptions().placeholder(R.mipmap.music_player_icon_round).centerCrop()).into(PlayerActivity.binding.songImgPA)
+        PlayerActivity.binding.songNamePA.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].title
+        playMusic()
+
     }
 }
