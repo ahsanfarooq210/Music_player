@@ -13,7 +13,7 @@ import com.ahsanfarooq210.music_player.databinding.ActivityPlayerBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
-class PlayerActivity : AppCompatActivity(),ServiceConnection
+class PlayerActivity : AppCompatActivity(),ServiceConnection,MediaPlayer.OnCompletionListener
 {
 
     companion object
@@ -134,6 +134,7 @@ class PlayerActivity : AppCompatActivity(),ServiceConnection
             binding.tvSeekBarEnd.text= formateDuration(musicService!!.mediaPlayer!!.duration.toLong())
             binding.seekBarPA.progress=0
             binding.seekBarPA.max= musicService!!.mediaPlayer!!.duration
+            musicService!!.mediaPlayer!!.setOnCompletionListener ( this )
         }
         catch (e: Exception)
         {
@@ -171,14 +172,14 @@ class PlayerActivity : AppCompatActivity(),ServiceConnection
         {
             setSongposition(increment = true)
             setLayout()
-
+            createMediaPlayer()
 
         }
         else
         {
             setSongposition(increment = false)
             setLayout()
-
+            createMediaPlayer()
         }
     }
 
@@ -189,11 +190,16 @@ class PlayerActivity : AppCompatActivity(),ServiceConnection
         val binder=service as MusicService.MyBinder
         musicService=binder.currentService()
         createMediaPlayer()
-
+        musicService!!.seekBarSetup()
     }
 
     override fun onServiceDisconnected(p0: ComponentName?)
     {
         musicService=null
+    }
+
+    override fun onCompletion(p0: MediaPlayer?)
+    {
+        prevNextSong(true)
     }
 }
