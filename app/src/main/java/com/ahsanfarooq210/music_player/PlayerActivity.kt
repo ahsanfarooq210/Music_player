@@ -7,6 +7,7 @@ import android.content.ServiceConnection
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.IBinder
+import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import com.ahsanfarooq210.music_player.databinding.ActivityPlayerBinding
 import com.bumptech.glide.Glide
@@ -66,6 +67,23 @@ class PlayerActivity : AppCompatActivity(),ServiceConnection
         binding.nextBtnPA.setOnClickListener {
             prevNextSong(increment = true)
         }
+
+        binding.seekBarPA.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean)
+            {
+                if(fromUser)
+                {
+                    musicService!!.mediaPlayer!!.seekTo(progress)
+                }
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?)= Unit
+
+
+            override fun onStopTrackingTouch(p0: SeekBar?)= Unit
+
+
+        })
     }
 
     private fun getIntentData()
@@ -112,6 +130,10 @@ class PlayerActivity : AppCompatActivity(),ServiceConnection
             isPlaying = true
             binding.playPauseBtn.setIconResource(R.drawable.pause_icon)
             musicService!!.showNotification(R.drawable.pause_icon)
+            binding.tvSeekbarStart.text= formateDuration(musicService!!.mediaPlayer!!.currentPosition.toLong())
+            binding.tvSeekBarEnd.text= formateDuration(musicService!!.mediaPlayer!!.duration.toLong())
+            binding.seekBarPA.progress=0
+            binding.seekBarPA.max= musicService!!.mediaPlayer!!.duration
         }
         catch (e: Exception)
         {

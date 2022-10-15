@@ -32,6 +32,7 @@ class NotificationReceiver : BroadcastReceiver()
                     playMusic()
                 }
             }
+
             ApplicationClass.EXIT->{
                 PlayerActivity.musicService!!.stopForeground(true)
                 PlayerActivity.musicService=null
